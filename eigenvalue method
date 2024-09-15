@@ -1,0 +1,37 @@
+%Input the judgement Matrix
+clear;clc
+disp('Please enter the judgment matrix A:')
+A=input('Judgment matrix A=');
+
+%Step 1: Normalize the judgment matrix by column (each element divided by the sum of its column)
+Sum_A=sum(A);
+[~,n]=size(A);
+%Since the judgment matrix A is a square matrix, r and c are the same and can both be represented by n.
+
+%Calculate weights using the eigenvalue method 
+% Step 1: Find the maximum eigenvalue and the corresponding eigenvector of the judgment matrix A量
+clc
+[V,D]=eig(A);
+%V is the eigenvector, D is the diagonal matrix composed of eigenvalues (all other elements are zero)
+Max_eig=max(max(D));
+%To find the position of the maximum eigenvalue, use the find function
+% We need to set all positions in the diagonal matrix D that do not equal the maximum eigenvalue to zeroD=Max_eig;
+[r,c]=find(D==Max_eig,1);
+%Find the position of the first element in D that is equal to the maximum eigenvalue, recording its row and column 
+% Step 2: Normalize the obtained eigenvector to get the weights
+V(:,c)
+disp('The result of the weight calculation using the eigenvalue method is:');
+disp(V(:,c)./sum(V(:,c)))
+%First, find the corresponding eigenvector based on the column number c of the maximum eigenvalue, then normalize it. 
+% Step 3: Calculate the consistency ratio CRclc
+CI=(Max_eig-n)/(n-1);
+RI=[0 0 0.52 0.89 1.12 1.26 1.36 1.41 1.46 1.49 1.52 1.54 1.56 1.58 1.59];
+%RI supports a maximum of n = 15
+CR=CI/RI(n);
+disp('Consistency index CI=');disp(CI);
+disp('Consistency ratio CR=');disp(CR);
+if CR<0.1
+    disp('Since CR < 0.1, the consistency of the judgment matrix A is acceptable!’)
+else
+    disp('Note: CR > 0.1, so the judgment matrix A needs to be modified!')
+end 

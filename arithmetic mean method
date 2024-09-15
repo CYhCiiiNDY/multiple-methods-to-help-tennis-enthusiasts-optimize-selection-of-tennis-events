@@ -1,0 +1,11 @@
+clc
+disp(' Please enter the judgment matrix A:')
+A=input(' Judgment matrix A=');
+
+SUM_A=sum(A)
+[n,n]=size(A)
+SUM_A=repmat(SUM_A,n,1)
+stand_A=A./SUM_A
+sum(stand_A,2)
+disp(' The result of the weight calculation using the arithmetic mean method is:');
+disp(sum(stand_A,2)/n)

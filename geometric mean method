@@ -1,0 +1,8 @@
+clc
+disp(' Please enter the judgment matrix A:')
+A=input(' Judgment matrix A=');
+
+Prduct_A=prod(A,2)
+Prduct_n_A=Prduct_A.^(1/n)
+disp('The result of the weight calculation using the geometric mean method is:');
+disp(Prduct_n_A./sum(Prduct_n_A))
